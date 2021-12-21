@@ -107,7 +107,7 @@ for i in range(l):
 
     api_key = ''
 
-    country = '1' #str(emailList['Country'][i])
+    country = '43' #str(emailList['Country'][i])
     operator = 'any'
     service = 'go'
     ref = '613879'

@@ -114,7 +114,7 @@ for i in range(l):
 
     api_key = 'c3f6Ab0689A42480883ff12751d72409'
 
-    country = '0' #str(emailList['Country'][i])
+    country = '43' #str(emailList['Country'][i])
     operator = 'any'
     service = 'ub'
     ref = '1074993'
@@ -172,15 +172,16 @@ for i in range(l):
         info = order_number.text
         a, id, phone_number = info.split(":")
         print('Id: ', id)
-        print('Phone Number: ', phone_number)
+        phone_number = phone_number[2:]
+        print('Phone Number: +49', phone_number)
 
         time.sleep(5)
-        phonenumber = driver.find_element_by_id('mobile')
-        send_delayed_keys(phonenumber, emailList['symbol'][i] + phone_number)
+        phonenumber = driver.find_element_by_xpath('//*[@class="c3 c4 c5 by c6 c7 c8 c1 ao"]')
+        send_delayed_keys(phonenumber, phone_number)
         time.sleep(1)
-        driver.find_element_by_id('mobile').send_keys(Keys.COMMAND + Keys.HOME, Keys.ARROW_RIGHT)
+        #driver.find_element_by_id('mobile').send_keys(Keys.COMMAND + Keys.HOME, Keys.ARROW_RIGHT)
         time.sleep(1)
-        driver.find_element_by_xpath('//*[@class="RveJvd snByac"]').click()
+        driver.find_element_by_xpath('//*[@class="cl cm c5 cf ae c4 aj cn co c3 cp cq c7 cr cs ct cu cv cw cx"]').click()
 
         # Activation status
         time.sleep(5)
@@ -225,9 +226,9 @@ for i in range(l):
             sys.exit()
 
     time.sleep(3)
-    phone_url = "https://auth.uber.com/login/?uber_client_name=eatsWebSignUp"
-    veryfi_url = "https://auth.uber.com/login/?uber_client_name=eatsWebSignUp"
-    main_url = "https://auth.uber.com/login/?uber_client_name=eatsWebSignUp"
+    phone_url = "https://auth.uber.com/v2/?breeze_local_zone=dca1&next_url=https%3A%2F%2Fwww.ubereats.com%2Flogin-redirect%2F%3Fcampaign%3Dsignin_universal_link%26marketing_vistor_id%0%26redirect%3D%252Fde&state=0%3D&x-uber-analytics-session-id=0"
+    veryfi_url = "https://auth.uber.com/v2/?breeze_local_zone=dca1&next_url=https%3A%2F%2Fwww.ubereats.com%2Flogin-redirect%2F%3Fcampaign%3Dsignin_universal_link%26marketing_vistor_id%0%26redirect%3D%252Fde&state=0%3D&x-uber-analytics-session-id=0"
+    main_url = "https://auth.uber.com/v2/?breeze_local_zone=dca1&next_url=https%3A%2F%2Fwww.ubereats.com%2Flogin-redirect%2F%3Fcampaign%3Dsignin_universal_link%26marketing_vistor_id%0%26redirect%3D%252Fde&state=0%3D&x-uber-analytics-session-id=0"
     a = driver.current_url
     while veryfi_url in a or phone_url in a or main_url in a:
         if main_url in a:
@@ -277,7 +278,7 @@ for i in range(l):
 
         time.sleep(10)
         cur_url = driver.current_url
-        fail_url = 'https://auth.uber.com/login/?uber_client_name=eatsWebSignUp'
+        fail_url = 'https://auth.uber.com/v2/?breeze_local_zone=dca1&next_url=https%3A%2F%2Fwww.ubereats.com%2Flogin-redirect%2F%3Fcampaign%3Dsignin_universal_link%26marketing_vistor_id%0%26redirect%3D%252Fde&state=0%3D&x-uber-analytics-session-id=0'
         if fail_url in cur_url:
             print("This account take some time")
             print("Plz Cut this browser yourself\n")
@@ -310,7 +311,7 @@ for i in range(l):
 
         time.sleep(10)
         cur_url = driver.current_url
-        fail_url = 'https://auth.uber.com/login/?uber_client_name=eatsWebSignUp'
+        fail_url = 'https://auth.uber.com/v2/?breeze_local_zone=dca1&next_url=https%3A%2F%2Fwww.ubereats.com%2Flogin-redirect%2F%3Fcampaign%3Dsignin_universal_link%26marketing_vistor_id%0%26redirect%3D%252Fde&state=0%3D&x-uber-analytics-session-id=0'
         if fail_url in cur_url:
             print("This account take some time")
             print("Plz Cut this browser yourself")
