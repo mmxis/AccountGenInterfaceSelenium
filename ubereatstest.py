@@ -115,7 +115,7 @@ for i in range(l):
 
     api_key = 'xyxyxyxyxyxy'
 
-    country = '0' #str(emailList['Country'][i])
+    country = '43' #str(emailList['Country'][i])
     operator = 'any'
     service = 'ub'
     ref = '1074993'
