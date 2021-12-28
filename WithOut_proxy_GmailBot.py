@@ -4,7 +4,6 @@ import pandas as pd
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.keys import Keys
 import sys
 import os
 import time
@@ -69,58 +68,50 @@ for i in range(l):
     print("proxy: ", emailList['proxy'][i])
 
     ########## User Agent
-    options = webdriver.ChromeOptions()
-    options = Options()
-    options.add_argument("user-agent=userAgent")
-    options.add_extension('LocalStorageManager.crx')
-    driver = webdriver.Chrome(options=options)
+    profile = webdriver.FirefoxProfile()
 
-    #driver = webdriver.Chrome()
+
+    profile.set_preference("general.useragent.override", emailList['userAgent'][i])
+    driver = webdriver.Firefox(profile)
+
+    #driver = webdriver.Firefox()
 
     url = emailList['Url'][i]
     driver.delete_all_cookies()
     driver.get(url)
     time.sleep(2)
 
-    #firstName = driver.find_element_by_id('firstName')
-    #send_delayed_keys(firstName, emailList['firstName'][i])
+    firstName = driver.find_element_by_id('firstName')
+    send_delayed_keys(firstName, emailList['firstName'][i])
 
-    #lastName = driver.find_element_by_id('lastName')
-    #send_delayed_keys(lastName, emailList['lastName'][i])
+    lastName = driver.find_element_by_id('lastName')
+    send_delayed_keys(lastName, emailList['lastName'][i])
 
-    #username = driver.find_element_by_id('username')
-    #send_delayed_keys(username, emailList['username'][i])
+    username = driver.find_element_by_id('username')
+    send_delayed_keys(username, emailList['username'][i])
 
-    #time.sleep(1)
-    #Passwd = driver.find_element_by_name('Passwd')
-    #send_delayed_keys(Passwd, emailList['Passwd'][i])
+    time.sleep(1)
+    Passwd = driver.find_element_by_name('Passwd')
+    send_delayed_keys(Passwd, emailList['Passwd'][i])
 
-    #time.sleep(1)
-    #ConfirmPasswd = driver.find_element_by_name('ConfirmPasswd')
-    #send_delayed_keys(ConfirmPasswd, emailList['ConfirmPasswd'][i])
+    time.sleep(1)
+    ConfirmPasswd = driver.find_element_by_name('ConfirmPasswd')
+    send_delayed_keys(ConfirmPasswd, emailList['ConfirmPasswd'][i])
 
-    #time.sleep(1)
-
-    #driver.find_element_by_xpath('//*[@class="RveJvd snByac"]').click()
-
-    #Hier Telefonnummer Code:
-    #driver.find_element_by_xpath('//*[@class="_ap _d0 _dm _ar _aa _ab _ac _ad _ae _bk _bl _bm _bn _bp _bq _br _bs _bt _bu _af _ag _ah _ai _bz _c0 _c1 _b5 _c2 _bv _bw _bx _by"]').click()
-
-    #time.sleep(1)
-    #element1 = find_element_by_xpath('//span[contains(text(), "Russia")]')
+    time.sleep(1)
+    driver.find_element_by_xpath('//*[@class="RveJvd snByac"]').click()
 
     ########################################################### API #########################
     print("Verify Your Phone number!!")
     time.sleep(1)
 
-    api_key = 'c3f6Ab0689A42480883ff12751d72409'
+    api_key = ''
 
-    country = '0' #str(emailList['Country'][i])
+    country = '43' #str(emailList['Country'][i])
     operator = 'any'
-    service = 'ub'
-    ref = '1074993'
+    service = 'go'
+    ref = '613879'
     forward = '0'
-    phoneException = '1'
 
     status_ready = '1'
     status_complete = '6'
@@ -159,7 +150,7 @@ for i in range(l):
     find_numbers = requests.get('https://sms-activate.ru/stubs/handler_api.php?api_key=' + api_key + '&action=getNumbersStatus&country=' + country + '&operator=' + operator)
     num_numbers = json.loads(find_numbers.text)
 
-    a = num_numbers['ub_0']
+    a = num_numbers['go_0']
     if a == '0':
         print('sorry no number available')
         driver.quit()
@@ -173,16 +164,13 @@ for i in range(l):
         info = order_number.text
         a, id, phone_number = info.split(":")
         print('Id: ', id)
-        phone_number = phone_number[2:]
-        print('Phone Number: +49', phone_number)
+        print('Phone Number: ', phone_number)
 
         time.sleep(5)
-        phonenumber = driver.find_element_by_xpath('//*[@class="c3 c4 c5 by c6 c7 c8 c1 ao"]')
-        send_delayed_keys(phonenumber, phone_number)
+        phonenumber = driver.find_element_by_id('mobile')
+        send_delayed_keys(phonenumber, emailList['symbol'][i] + phone_number)
         time.sleep(1)
-        #driver.find_element_by_id('mobile').send_keys(Keys.COMMAND + Keys.HOME, Keys.ARROW_RIGHT)
-        time.sleep(1)
-        driver.find_element_by_xpath('//*[@class="cl cm c5 cf ae c4 aj cn co c3 cp cq c7 cr cs ct cu cv cw cx"]').click()
+        driver.find_element_by_xpath('//*[@class="RveJvd snByac"]').click()
 
         # Activation status
         time.sleep(5)
@@ -205,7 +193,7 @@ for i in range(l):
                     tex, m_code = code.split(':')
                     print("Your SMS code: ", m_code)
                     time.sleep(2)
-                    codenumber = driver.find_element_by_xpath('//*[@class="bc ae ao dk dl dm dn do dp dq dr ds dt du dv dw dx dy dh c5 di by bu dz e0 e1 e2 e3 e4 e5 e6"')
+                    codenumber = driver.find_element_by_id('code')
                     send_delayed_keys(codenumber, m_code)
                     time.sleep(2)
                     driver.find_element_by_xpath('//*[@class="RveJvd snByac"]').click()
@@ -216,20 +204,20 @@ for i in range(l):
                     ch_activation_status = requests.get('https://sms-activate.ru/stubs/handler_api.php?api_key=' + api_key + '&action=setStatus&status=' + status_ban + '&id=' + id + '&forward=' + forward)
                     print("Cancel the activation")
                     print("sorry this number has some issues")
-                    #driver.quit()
-                    #sys.exit()
+                    driver.quit()
+                    sys.exit()
 
         else:
             ch_activation_status = requests.get('https://sms-activate.ru/stubs/handler_api.php?api_key=' + api_key + '&action=setStatus&status=' + status_ban + '&id=' + id + '&forward=' + forward)
             print("Cancel the activation")
             print("sorry this number has some issues")
-            #driver.quit()
-            #sys.exit()
+            driver.quit()
+            sys.exit()
 
     time.sleep(3)
-    phone_url = "https://auth.uber.com/v2/?breeze_local_zone=dca1&next_url=https%3A%2F%2Fwww.ubereats.com%2Flogin-redirect%2F%3Fcampaign%3Dsignin_universal_link%26marketing_vistor_id%0%26redirect%3D%252Fde&state=0%3D&x-uber-analytics-session-id=0"
-    veryfi_url = "https://auth.uber.com/v2/?breeze_local_zone=dca1&next_url=https%3A%2F%2Fwww.ubereats.com%2Flogin-redirect%2F%3Fcampaign%3Dsignin_universal_link%26marketing_vistor_id%0%26redirect%3D%252Fde&state=0%3D&x-uber-analytics-session-id=0"
-    main_url = "https://auth.uber.com/v2/?breeze_local_zone=dca1&next_url=https%3A%2F%2Fwww.ubereats.com%2Flogin-redirect%2F%3Fcampaign%3Dsignin_universal_link%26marketing_vistor_id%0%26redirect%3D%252Fde&state=0%3D&x-uber-analytics-session-id=0"
+    phone_url = "https://auth.uber.com/login/?uber_client_name=eatsWebSignUp"
+    veryfi_url = "https://auth.uber.com/login/?uber_client_name=eatsWebSignUp"
+    main_url = "https://auth.uber.com/login/?uber_client_name=eatsWebSignUp"
     a = driver.current_url
     while veryfi_url in a or phone_url in a or main_url in a:
         if main_url in a:
@@ -279,7 +267,7 @@ for i in range(l):
 
         time.sleep(10)
         cur_url = driver.current_url
-        fail_url = 'https://auth.uber.com/v2/?breeze_local_zone=dca1&next_url=https%3A%2F%2Fwww.ubereats.com%2Flogin-redirect%2F%3Fcampaign%3Dsignin_universal_link%26marketing_vistor_id%0%26redirect%3D%252Fde&state=0%3D&x-uber-analytics-session-id=0'
+        fail_url = 'https://auth.uber.com/login/?uber_client_name=eatsWebSignUp'
         if fail_url in cur_url:
             print("This account take some time")
             print("Plz Cut this browser yourself\n")
@@ -312,7 +300,7 @@ for i in range(l):
 
         time.sleep(10)
         cur_url = driver.current_url
-        fail_url = 'https://auth.uber.com/v2/?breeze_local_zone=dca1&next_url=https%3A%2F%2Fwww.ubereats.com%2Flogin-redirect%2F%3Fcampaign%3Dsignin_universal_link%26marketing_vistor_id%0%26redirect%3D%252Fde&state=0%3D&x-uber-analytics-session-id=0'
+        fail_url = 'https://auth.uber.com/login/?uber_client_name=eatsWebSignUp'
         if fail_url in cur_url:
             print("This account take some time")
             print("Plz Cut this browser yourself")

@@ -4,15 +4,13 @@ import pandas as pd
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.keys import Keys
 import sys
 import os
 import time
 import requests
 import json
 from xlwt import Workbook
-import random
-a=random.uniform(0.1,0.3)
+
 
 
 class Excel():
@@ -24,7 +22,7 @@ class Excel():
         df = data.to_dict()
         return df
 
-def send_delayed_keys(element, text, delay=a):
+def send_delayed_keys(element, text, delay=0.2):
     for c in text:
         endtime = time.time() + delay
         element.send_keys(c)
@@ -64,18 +62,36 @@ for i in range(l):
         'Country': emailList['Country'][i],
         'symbol': emailList['symbol'][i]
     }
+    print("proxy: ", emailList['proxy'][i])
     print("Username: ", emailList['username'][i])
     print("Password:", emailList['Passwd'][i] + '\n')
-    print("proxy: ", emailList['proxy'][i])
 
-    ########## User Agent
-    options = webdriver.ChromeOptions()
-    options = Options()
-    options.add_argument("user-agent=userAgent")
-    options.add_extension('LocalStorageManager.crx')
-    driver = webdriver.Chrome(options=options)
 
-    #driver = webdriver.Chrome()
+
+    ################################## Browser Driver #########################
+    ### Firefox
+
+    profile = webdriver.FirefoxProfile()
+    profile.set_preference("general.useragent.override", emailList['userAgent'][i])
+    #driver = webdriver.Firefox(profile)
+
+    ######### Proxy
+    firefox_capabilities = webdriver.DesiredCapabilities.FIREFOX
+    firefox_capabilities['marionette'] = True
+    myProxy = emailList['proxy'][i]
+    ip, port = myProxy.split(":")
+
+    PROXY=myProxy
+    myProxy = emailList['proxy'][i]
+    firefox_capabilities['proxy'] = {
+    "proxyType": "MANUAL",
+    "httpProxy": PROXY,
+    "ftpProxy": PROXY,
+    "sslProxy": PROXY
+    }
+
+    driver = webdriver.Firefox(capabilities=firefox_capabilities)
+
 
     url = emailList['Url'][i]
     driver.delete_all_cookies()
@@ -109,13 +125,15 @@ for i in range(l):
     #time.sleep(1)
     #element1 = find_element_by_xpath('//span[contains(text(), "Russia")]')
 
+
+
     ########################################################### API #########################
     print("Verify Your Phone number!!")
     time.sleep(1)
 
     api_key = 'c3f6Ab0689A42480883ff12751d72409'
 
-    country = '0' #str(emailList['Country'][i])
+    country = '43' #str(emailList['Country'][i])
     operator = 'any'
     service = 'ub'
     ref = '1074993'
