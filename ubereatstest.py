@@ -73,6 +73,7 @@ for i in range(l):
     options = Options()
     options.add_argument("user-agent=userAgent")
     options.add_extension('LocalStorageManager.crx')
+    options.add_extension('EditThisCookie.crx')
     driver = webdriver.Chrome(options=options)
 
     #driver = webdriver.Chrome()
