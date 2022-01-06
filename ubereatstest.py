@@ -1,6 +1,7 @@
 from xlwt import Workbook
 import xlrd
 import pandas as pd
+from build import utilities
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.chrome.options import Options
@@ -69,14 +70,16 @@ for i in range(l):
     print("proxy: ", emailList['proxy'][i])
 
     ########## User Agent
-    options = webdriver.ChromeOptions()
-    options = Options()
-    options.add_argument("user-agent=userAgent")
-    options.add_extension('LocalStorageManager.crx')
-    options.add_extension('EditThisCookie.crx')
-    driver = webdriver.Chrome(options=options)
+    #options = webdriver.ChromeOptions()
+    chromedriver = utilities.findChromeDriverVersion()
+    chrome_options = Options()
+    chrome_options.add_argument("user-agent=userAgent")
+    chrome_options.add_argument('--deny-permission-prompts')
+    chrome_options.add_experimental_option("prefs", {'profile.default_content_setting_values.geolocation': 2})
+    chrome_options.add_extension('LocalStorageManager.crx')
+    chrome_options.add_extension('EditThisCookie.crx')
+    driver = webdriver.Chrome(options=chrome_options, executable_path=chromedriver)
 
-    #driver = webdriver.Chrome()
 
     url = emailList['Url'][i]
     driver.delete_all_cookies()
@@ -114,7 +117,7 @@ for i in range(l):
     print("Verify Your Phone number!!")
     time.sleep(1)
 
-    api_key = 'xyxyxyxyxyxy'
+    api_key = 'xyxyyxyxyxyxyxyx'
 
     country = '43' #str(emailList['Country'][i])
     operator = 'any'
