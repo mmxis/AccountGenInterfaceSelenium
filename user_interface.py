@@ -51,5 +51,4 @@ while True:
 
 
 
-        #os.system('ubereats.py')
 

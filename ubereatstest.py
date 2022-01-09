@@ -17,6 +17,8 @@ from xlwt import Workbook
 import random
 a=random.uniform(0.1,0.3)
 
+with open('userdata.txt') as f:
+    user_data = [line.rstrip() for line in f]
 
 class Excel():
     def __init__(self):
@@ -120,7 +122,7 @@ for i in range(l):
     print("Verify Your Phone number!!")
     time.sleep(1)
 
-    api_key = 'xxxyxyxyy'
+    api_key = user_data[0]
 
     country = '43' #str(emailList['Country'][i])
     operator = 'any'
@@ -271,14 +273,14 @@ for i in range(l):
     vname = driver.find_element_by_xpath('//*[@id="FIRST_NAME"]')
     vname.clear()
     time.sleep(1)
-    vname.send_keys("Mehmet")
+    vname.send_keys(user_data[1])
 
     ###NACHNAME###
     time.sleep(2)
     nachname = driver.find_element_by_xpath('//*[@id="LAST_NAME"]')
     nachname.clear()
     time.sleep(1)
-    nachname.send_keys("I", f.last_name())
+    nachname.send_keys(user_data[2], f.last_name())
     time.sleep(1)
     driver.find_element_by_xpath('//*[@class="cl cm c5 cf ae c4 aj cn co c3 cp cq c7 cr cs ct cu cv cw cx"]').click()
     time.sleep(1)
