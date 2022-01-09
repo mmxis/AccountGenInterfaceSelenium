@@ -2,21 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4dc1ad01-f63c-4f3e-b877-dc1710c21356" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/WeEatGood.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/utilities.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chromedriver94.exe" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chromedriver95.exe" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chromedriver96.exe" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chromedriver97.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chromedriver.exe" beforeDir="false" afterPath="$PROJECT_DIR$/chromedriver93.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ubereatstest.py" beforeDir="false" afterPath="$PROJECT_DIR$/ubereatstest.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user_interface.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/WeEatGood.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/WeEatGood.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/GUI/api_key.txt" beforeDir="false" afterPath="$PROJECT_DIR$/userdata.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/GUI/user_interface.py" beforeDir="false" />
     </list>
+    <list id="a4d2d153-b08f-4b36-a30e-887b710b1e64" name="added chromedriver version check &amp; disabled location access" comment="added chromedriver version check &amp; disabled location access" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -31,7 +24,18 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="updated_script" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="23KKAj6aWHz3MRs27UKLZn0d2b4" />
   <component name="ProjectViewState">
@@ -42,7 +46,12 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
   </component>
-  <component name="RunManager" selected="Python.ubereatstest">
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Melih\PycharmProjects\WeEatGood" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.user_interface">
     <configuration name="ubereatstest" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="WeEatGood" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -50,12 +59,33 @@
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="" />
+      <option name="SDK_HOME" value="C:\Users\Melih\PycharmProjects\WeEatGood\venv\Scripts\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
+      <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ubereatstest.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="user_interface" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="WeEatGood" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/build/GUI" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="C:\Users\Melih\PycharmProjects\WeEatGood\user_interface.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -71,9 +101,9 @@
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="" />
+      <option name="SDK_HOME" value="C:\Users\Melih\PycharmProjects\WeEatGood\venv\Scripts\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/build" />
-      <option name="IS_MODULE_SDK" value="true" />
+      <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/build/utilities.py" />
@@ -85,10 +115,16 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Python.ubereatstest" />
+      <item itemvalue="Python.utilities" />
+      <item itemvalue="Python.user_interface" />
+    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.ubereatstest" />
+        <item itemvalue="Python.user_interface" />
         <item itemvalue="Python.utilities" />
+        <item itemvalue="Python.ubereatstest" />
       </list>
     </recent_temporary>
   </component>
@@ -125,5 +161,19 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="PythonConfigurationType">
+        <watch expression="str(api_key)" language="Python" />
+        <watch expression="''.join(api_key)" language="Python" />
+        <watch expression="str(values['api_key_field'])" language="Python" />
+        <watch expression="values['api_key_field']" language="Python" />
+        <watch expression="''.join(values['api_key_field']).replace(&quot;('&quot;,&quot;&quot;).replace(&quot;',)&quot;,&quot;&quot;)" language="Python" />
+        <watch expression="''.join(api_key)" language="Python" />
+        <watch expression="user_data[0]" language="Python" />
+        <watch expression="values['api_key_field']" language="Python" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>
