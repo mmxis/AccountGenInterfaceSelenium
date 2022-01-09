@@ -1,5 +1,6 @@
 # first try for a simple UI
 import PySimpleGUI as sg
+from subprocess import call
 
 # import user data
 
@@ -43,7 +44,7 @@ while True:
             user_data[2]=values['name_field']
             f.close()
         window.close()
-        os.system('ubereatstest.py')
+        call(["python", "ubereatstest.py"])
 
     elif event == sg.WINDOW_CLOSED:
         break
