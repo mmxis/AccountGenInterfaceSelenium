@@ -120,7 +120,7 @@ for i in range(l):
     print("Verify Your Phone number!!")
     time.sleep(1)
 
-    api_key = '536Ab573cf05756695504b76b6fA0cdA'
+    api_key = 'xxxyxyxyy'
 
     country = '43' #str(emailList['Country'][i])
     operator = 'any'
