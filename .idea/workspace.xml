@@ -1,22 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4dc1ad01-f63c-4f3e-b877-dc1710c21356" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/WeEatGood.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/utilities.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chromedriver94.exe" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chromedriver95.exe" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chromedriver96.exe" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chromedriver97.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chromedriver.exe" beforeDir="false" afterPath="$PROJECT_DIR$/chromedriver93.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ubereatstest.py" beforeDir="false" afterPath="$PROJECT_DIR$/ubereatstest.py" afterDir="false" />
-    </list>
+    <list default="true" id="4dc1ad01-f63c-4f3e-b877-dc1710c21356" name="Default Changelist" comment="added chromedriver version check &amp; disabled location access" />
+    <list id="a4d2d153-b08f-4b36-a30e-887b710b1e64" name="added chromedriver version check &amp; disabled location access" comment="added chromedriver version check &amp; disabled location access" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -31,6 +17,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="updated_script" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="23KKAj6aWHz3MRs27UKLZn0d2b4" />
@@ -125,5 +116,6 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>
