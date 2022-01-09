@@ -2,9 +2,11 @@ from xlwt import Workbook
 import xlrd
 import pandas as pd
 from build import utilities
+from faker import Faker
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 import sys
 import os
@@ -86,6 +88,7 @@ for i in range(l):
     driver.get(url)
     time.sleep(2)
 
+    ##Das hier später benutzen um an der Excel den Anfangsbuchstaben vom Nachnamen und den Vornamen einzufügen!!!
     #firstName = driver.find_element_by_id('firstName')
     #send_delayed_keys(firstName, emailList['firstName'][i])
 
@@ -117,7 +120,7 @@ for i in range(l):
     print("Verify Your Phone number!!")
     time.sleep(1)
 
-    api_key = 'xyxyyxyxyxyxyxyx'
+    api_key = '536Ab573cf05756695504b76b6fA0cdA'
 
     country = '43' #str(emailList['Country'][i])
     operator = 'any'
@@ -177,10 +180,13 @@ for i in range(l):
         info = order_number.text
         a, id, phone_number = info.split(":")
         print('Id: ', id)
-        phone_number = phone_number[2:]
-        print('Phone Number: +49', phone_number)
+        phone_number = phone_number[0:]
+        print('Phone Number: +', phone_number)
 
         time.sleep(5)
+        plusdruck = driver.find_element_by_xpath('//*[@class="c3 c4 c5 by c6 c7 c8 c1 ao"]')
+        plusdruck.send_keys("+")
+        time.sleep(1)
         phonenumber = driver.find_element_by_xpath('//*[@class="c3 c4 c5 by c6 c7 c8 c1 ao"]')
         send_delayed_keys(phonenumber, phone_number)
         time.sleep(1)
@@ -209,10 +215,15 @@ for i in range(l):
                     tex, m_code = code.split(':')
                     print("Your SMS code: ", m_code)
                     time.sleep(2)
-                    codenumber = driver.find_element_by_xpath('//*[@class="bc ae ao dk dl dm dn do dp dq dr ds dt du dv dw dx dy dh c5 di by bu dz e0 e1 e2 e3 e4 e5 e6"')
-                    send_delayed_keys(codenumber, m_code)
-                    time.sleep(2)
-                    driver.find_element_by_xpath('//*[@class="RveJvd snByac"]').click()
+                    actions = ActionChains(driver)
+                    actions.send_keys(m_code)
+                    actions.perform()
+                    #codenumber2 = driver.find_element_by_xpath('//*[@id="PHONE_SMS_OTP-0"').click()
+                    #time.sleep(2)
+                    #codenumber = driver.find_element_by_xpath('//*[@id="wrapper"]/div[2]/div/div[1]/div[1]/div[2]/div/div/div[1]/div"')
+                    #send_delayed_keys(codenumber, m_code)
+                    ##time.sleep(2)
+                    ##driver.find_element_by_xpath('//*[@class="RveJvd snByac"]').click()
                     # complete_status = requests.get('https://sms-activate.ru/stubs/handler_api.php?api_key='+api_key+'&action=setStatus&status='+status_complete+'&id='+id+'&forward='+forward)
                     # print("PVA complete")
                     break
@@ -230,112 +241,53 @@ for i in range(l):
             #driver.quit()
             #sys.exit()
 
-    time.sleep(3)
-    phone_url = "https://auth.uber.com/v2/?breeze_local_zone=dca1&next_url=https%3A%2F%2Fwww.ubereats.com%2Flogin-redirect%2F%3Fcampaign%3Dsignin_universal_link%26marketing_vistor_id%0%26redirect%3D%252Fde&state=0%3D&x-uber-analytics-session-id=0"
-    veryfi_url = "https://auth.uber.com/v2/?breeze_local_zone=dca1&next_url=https%3A%2F%2Fwww.ubereats.com%2Flogin-redirect%2F%3Fcampaign%3Dsignin_universal_link%26marketing_vistor_id%0%26redirect%3D%252Fde&state=0%3D&x-uber-analytics-session-id=0"
-    main_url = "https://auth.uber.com/v2/?breeze_local_zone=dca1&next_url=https%3A%2F%2Fwww.ubereats.com%2Flogin-redirect%2F%3Fcampaign%3Dsignin_universal_link%26marketing_vistor_id%0%26redirect%3D%252Fde&state=0%3D&x-uber-analytics-session-id=0"
-    a = driver.current_url
-    while veryfi_url in a or phone_url in a or main_url in a:
-        if main_url in a:
-            break
-        else:
-            time.sleep(2)
-            print("This is not correct page\nplz wait some time")
-            a = driver.current_url
-
-    driver.find_element_by_id('mobile').clear()
-
+    ###Ab hier muss die Pasted Nummer gecleared werden und durch Faker Package muss ne Email gefaked werden.###
+    time.sleep(2)
+    fotze = driver.find_element_by_xpath('//*[@class="bc dz e0 e1 e2 e3 e4 e5 e6 e7 c3 ao e8 e9 c7 ea eb fk fl d8 c5 d9 by bu ee ef"]')
+    fotze.send_keys(Keys.CONTROL +"a")
+    fotze.send_keys(Keys.DELETE)
     time.sleep(1)
-    RecoveryEmail = driver.find_element_by_xpath('//*[@spellcheck="false"]')
-    send_delayed_keys(RecoveryEmail, emailList['RecoveryEmail'][i])
-
+    f = Faker()
+    fotze.send_keys(f.first_name())
+    time.sleep(2)
+    emailfeld = driver.find_element_by_xpath('//*[@class="bc dz e0 e1 e2 e3 e4 e5 e6 e7 c3 ao e8 e9 c7 ea eb fk fl d8 c5 d9 by bu ee ef"]')
+    emailfeld.send_keys(f.email())
     time.sleep(1)
-    driver.find_element_by_xpath('//*[@aria-label="Day"]').send_keys(int(emailList['Day'][i]))
+    driver.find_element_by_xpath('//*[@class="cl cm c5 cf ae c4 aj cn co c3 cp cq c7 cr cs ct cu cv cw cx"]').click()
 
+    ####Passwort(22WeEatGood)####
+    time.sleep(2)
+    pw = driver.find_element_by_xpath('//*[@class="bc dz e0 e1 e2 e3 e4 e5 e6 e7 c3 ao e8 e9 c7 ea eb fk fl d8 c5 d9 by bu ee ef"]')
+    pw.clear()
     time.sleep(1)
-    element = driver.find_element_by_id('month')
-    drp = Select(element)
-    drp.select_by_visible_text(emailList['Month'][i])
-
+    pw.send_keys("22WeEatGood")
     time.sleep(1)
-    driver.find_element_by_xpath('//*[@aria-label="Year"]').send_keys(int(emailList['Year'][i]))
+    driver.find_element_by_xpath('//*[@class="cl cm c5 cf ae c4 aj cn co c3 cp cq c7 cr cs ct cu cv cw cx"]').click()
 
+    ###Name und Nachname(Faker)###
+
+    ###VORNAME###
+    time.sleep(2)
+    vname = driver.find_element_by_xpath('//*[@id="FIRST_NAME"]')
+    vname.clear()
     time.sleep(1)
-    element = driver.find_element_by_id('gender')
-    drp = Select(element)
-    drp.select_by_visible_text(emailList['Gender'][i])
+    vname.send_keys("Mehmet")
 
+    ###NACHNAME###
+    time.sleep(2)
+    nachname = driver.find_element_by_xpath('//*[@id="LAST_NAME"]')
+    nachname.clear()
     time.sleep(1)
-    driver.find_element_by_xpath('//*[@class="RveJvd snByac"]').click()
+    nachname.send_keys("I", f.last_name())
+    time.sleep(1)
+    driver.find_element_by_xpath('//*[@class="cl cm c5 cf ae c4 aj cn co c3 cp cq c7 cr cs ct cu cv cw cx"]').click()
+    time.sleep(1)
+    driver.find_element_by_xpath('//*[@class="bw dl dm g8 fu ft g9 ga bc dg dh di dj gb gc gd ge gf gg gh gi dn dp dq do c3 fq g6 gj gk gl gm gn go gp gq"]').click()
+    time.sleep(1)
+    driver.find_element_by_xpath('//*[@class="cl cm c5 cf ae c4 aj cn co c3 cp cq c7 cr cs ct cu cv cw cx"]').click()
 
-    time.sleep(5)
-    current_Url = driver.current_url
-    du_Url = 'https://auth.uber.com/login/?uber_client_name=eatsWebSignUp'
-    if du_Url in current_Url:
-        # time.sleep(2)
-        #driver.find_element_by_xpath('//*[@class="Ce1Y1c"]').click()
-        #time.sleep(2)
-        #driver.find_element_by_xpath('//*[@class="Ce1Y1c"]').click()
-        #time.sleep(2)
-        #driver.find_element_by_xpath('//*[@class="Ce1Y1c"]').click()
-        #time.sleep(10)
-        driver.find_element_by_xpath('//*[@class="RveJvd snByac"]').click()
 
-        time.sleep(10)
-        cur_url = driver.current_url
-        fail_url = 'https://auth.uber.com/v2/?breeze_local_zone=dca1&next_url=https%3A%2F%2Fwww.ubereats.com%2Flogin-redirect%2F%3Fcampaign%3Dsignin_universal_link%26marketing_vistor_id%0%26redirect%3D%252Fde&state=0%3D&x-uber-analytics-session-id=0'
-        if fail_url in cur_url:
-            print("This account take some time")
-            print("Plz Cut this browser yourself\n")
-            time.sleep(3)
-
-            sheet1.write(i, 0, emailList['username'][i])
-            sheet1.write(i, 1, emailList['Passwd'][i])
-            sheet1.write(i, 2, emailList['RecoveryEmail'][i])
-            sheet1.write(i, 3, "Bad")
-            wb.save('verify_Emails.xls')
-
-        else:
-            time.sleep(3)
-            sheet1.write(i, 0, emailList['username'][i])
-            sheet1.write(i, 1, emailList['Passwd'][i])
-            sheet1.write(i, 2, emailList['RecoveryEmail'][i])
-            sheet1.write(i, 3, "Ok")
-            wb.save('verify_Emails.xls')
-    else:
-        # time.sleep(2)
-        # driver.find_element_by_xpath('//*[@class="RveJvd snByac"]').click()
-        time.sleep(2)
-        driver.find_element_by_xpath('//*[@class="Ce1Y1c"]').click()
-        time.sleep(2)
-        driver.find_element_by_xpath('//*[@class="Ce1Y1c"]').click()
-        time.sleep(2)
-        driver.find_element_by_xpath('//*[@class="Ce1Y1c"]').click()
-        time.sleep(2)
-        driver.find_element_by_xpath('//*[@class="RveJvd snByac"]').click()
-
-        time.sleep(10)
-        cur_url = driver.current_url
-        fail_url = 'https://auth.uber.com/v2/?breeze_local_zone=dca1&next_url=https%3A%2F%2Fwww.ubereats.com%2Flogin-redirect%2F%3Fcampaign%3Dsignin_universal_link%26marketing_vistor_id%0%26redirect%3D%252Fde&state=0%3D&x-uber-analytics-session-id=0'
-        if fail_url in cur_url:
-            print("This account take some time")
-            print("Plz Cut this browser yourself")
-            time.sleep(3)
-
-            sheet1.write(i, 0, emailList['username'][i])
-            sheet1.write(i, 1, emailList['Passwd'][i])
-            sheet1.write(i, 2, emailList['RecoveryEmail'][i])
-            sheet1.write(i, 3, "Bad")
-            wb.save('verify_Emails.xls')
-        else:
-            time.sleep(3)
-
-            sheet1.write(i, 0, emailList['username'][i])
-            sheet1.write(i, 1, emailList['Passwd'][i])
-            sheet1.write(i, 2, emailList['RecoveryEmail'][i])
-            sheet1.write(i, 3, "Ok")
-            wb.save('verify_Emails.xls')
+    ##Ab hier Endet alles und SMS Activate sollte das Finale Signal ausgeben
     complete = requests.get('https://sms-activate.ru/stubs/handler_api.php?api_key='+api_key+'&action=setStatus&status='+ status_complete +'&id='+id+'&forward='+forward)
     print("Now, this account is completed.\n")
-    driver.quit()
-    time.sleep(20000)
+    time.sleep(360000)
