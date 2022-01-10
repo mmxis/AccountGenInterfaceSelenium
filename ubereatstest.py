@@ -8,14 +8,19 @@ from selenium.webdriver.support.ui import Select
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
+from subprocess import call
 import sys
+import shlex
+import PySimpleGUI as sg
 import os
 import time
 import requests
 import json
+import pickle
 from xlwt import Workbook
 import random
 a=random.uniform(0.1,0.3)
+
 
 with open('userdata.txt') as f:
     user_data = [line.rstrip() for line in f]
@@ -79,16 +84,26 @@ for i in range(l):
     chrome_options = Options()
     chrome_options.add_argument("user-agent=userAgent")
     chrome_options.add_argument('--deny-permission-prompts')
+    ##chrome_options.add_argument('--headless')
+    chrome_options.add_argument('--remote-debugging-port=9222')
     chrome_options.add_experimental_option("prefs", {'profile.default_content_setting_values.geolocation': 2})
     chrome_options.add_extension('LocalStorageManager.crx')
     chrome_options.add_extension('EditThisCookie.crx')
     driver = webdriver.Chrome(options=chrome_options, executable_path=chromedriver)
 
-
+    #File_object = open(a+"File_Name","Access_Mode")
     url = emailList['Url'][i]
+    fileIDs = open("SessionExec.txt", "w")
+    executor_url = driver.command_executor._url
+    session_id = driver.session_id
+    print("Session ID", session_id)
+    print("Executor Url", executor_url)
+    fileIDs.write(session_id+"\n"+executor_url)
+    fileIDs.close()
     driver.delete_all_cookies()
     driver.get(url)
     time.sleep(2)
+
 
     ##Das hier später benutzen um an der Excel den Anfangsbuchstaben vom Nachnamen und den Vornamen einzufügen!!!
     #firstName = driver.find_element_by_id('firstName')

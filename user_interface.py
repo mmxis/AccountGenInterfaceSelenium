@@ -1,8 +1,18 @@
 # first try for a simple UI
 import PySimpleGUI as sg
 from subprocess import call
-
+from selenium import webdriver
+from build import utilities
+import time
+from selenium.webdriver.remote.webdriver import WebDriver
+from selenium.webdriver.support.ui import Select
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.keys import Keys
+import os
 # import user data
+# executor_url = driver.command_executor._url
+# session_id = driver.session_id
 
 with open('userdata.txt') as f2:
     user_data =  [line.rstrip() for line in f2]
@@ -16,16 +26,18 @@ layout = [
     [sg.Text('Gib deinen Vornamen und den ersten Buchstaben des Nachnamens ein:')],
     [sg.Text('Vorname'), sg.InputText(user_data[1], key = 'surname_field')],
     [sg.Text('Nachname'), sg.InputText(user_data[2], key = 'name_field')],
-    [sg.Button('Account erstellen'), sg.Button('Schritte im Warenkorb durchführen')]
+    [sg.Button('Accountdaten sichern'), sg.Button('Schritte im Warenkorb durchführen'), sg.Button('Script Starten!')]
 ]
 
 # create the window
 window = sg.Window('WeEatGood', layout, font='Calibri')
 
+
+
 # event handling
 while True:
     event, values = window.read()
-    if event == 'Account erstellen':
+    if event == 'Accountdaten sichern':
         #if ''.join(values['api_key_field']) != ''.join(api_key):
 #        if ''.join(values['api_key_field']).replace("('","").replace("',)","") != ''.join(api_key):
         if values['api_key_field'] != user_data[0]:
@@ -43,11 +55,23 @@ while True:
             f.write(user_data[0]+"\n"+user_data[1]+"\n"+values['name_field'])
             user_data[2]=values['name_field']
             f.close()
-        window.close()
-        call(["python", "ubereatstest.py"])
-
+        else:
+            sg.Popup("Erfolg", "Deine angegebenen Daten wurden erfolgreich gesichert!")
+    elif event == 'Script Starten!':
+            call(["python", "ubereatstest.py"])
+    elif event == 'Schritte im Warenkorb durchführen':
+            sg.Popup("kommt noch!")
+            chromedriver = utilities.findChromeDriverVersion()
+            chrome_options = Options()
+            driver = webdriver.Chrome(options=chrome_options, executable_path=chromedriver)
+            driver.get('chrome://inspect/#devices')
+            #Automatisierung mit Cookies und Local Storage einführen
     elif event == sg.WINDOW_CLOSED:
         break
+
+# cookies = browser.get_cookies()
+# for cookie in cookies:
+# print(cookie)
 
 
 
